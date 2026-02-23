@@ -7,17 +7,14 @@
   --gold-light: #e2c58a;
   --black: #0a0a0a;
   --white: #ffffff;
+  --font-playfair: "Playfair Display", serif;
+  --font-outfit: "Outfit", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
-  --color-black: var(--black);
-  --color-white: var(--white);
-  --font-serif: var(--font-playfair);
-  --font-sans: var(--font-outfit);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 
@@ -34,11 +31,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 h1,
 h2,
