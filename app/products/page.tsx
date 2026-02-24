@@ -4,17 +4,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Filter } from "lucide-react";
 
-export const dynamic = "force-dynamic";
+import dbConnect from "@/lib/db";
+import Product from "@/models/Product";
 
 async function getProducts() {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/admin/products`, { cache: 'no-store' });
-        if (!res.ok) return [];
-        const products = await res.json();
+        await dbConnect();
         // Only return active products
-        return products.filter((p: any) => p.isActive);
+        const products = await Product.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .populate("category", "name")
+            .lean();
+
+        // Convert MongoDB objects to plain JS objects for client components
+        return JSON.parse(JSON.stringify(products));
     } catch (error) {
-        console.error("Failed to fetch products:", error);
+        console.error("Failed to fetch products from DB:", error);
         return [];
     }
 }
